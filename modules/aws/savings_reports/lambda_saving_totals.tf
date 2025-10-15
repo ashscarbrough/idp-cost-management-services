@@ -16,23 +16,23 @@ resource "aws_lambda_function" "savings_totals_lambda_function" {
   description = "Lambda function to scan and document cost savings totals into CSV document."
   environment {
     variables = {
-      ENV     = var.env,
-      SNS_ARN = var.sns_topic_arn,
-      EBS_VOLUME_TABLE = var.ebs_volume_table_name,
+      ENV                   = var.env,
+      SNS_ARN               = var.sns_topic_arn,
+      EBS_VOLUME_TABLE      = var.ebs_volume_table_name,
       CLEANUP_SAVINGS_TABLE = var.resource_savings_table_name,
-      EBS_SNAPSHOT_TABLE = var.ebs_snapshot_table_name,
-      S3_BUCKET = var.s3_storage_bucket_name
+      EBS_SNAPSHOT_TABLE    = var.ebs_snapshot_table_name,
+      S3_BUCKET             = var.s3_storage_bucket_name
     }
   }
 
-  handler = "lambda_function.lambda_handler"
+  handler     = "lambda_function.lambda_handler"
   memory_size = 256
   runtime     = "python3.13"
 
   filename         = data.archive_file.savings_totals_lambda_code.output_path
   source_code_hash = data.archive_file.savings_totals_lambda_code.output_base64sha256
 
-  tags = var.tags
+  tags    = var.tags
   timeout = 900
   vpc_config {
     security_group_ids = [var.lambda_security_group_id]

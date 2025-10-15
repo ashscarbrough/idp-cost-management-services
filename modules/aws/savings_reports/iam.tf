@@ -51,7 +51,7 @@ resource "aws_iam_policy" "savings_totals_calculation_policy" {
           "dynamodb:PutItem"
         ]
         Resource = [
-          var.ebs_snapshot_table_arn, 
+          var.ebs_snapshot_table_arn,
           var.ebs_volume_table_arn,
           var.resource_savings_table_arn
         ]

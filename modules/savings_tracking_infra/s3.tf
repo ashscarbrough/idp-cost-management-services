@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "account_storage_bucket" {
-  bucket        = "idp-cost-management-${var.short_region}-${var.env}-${var.account_id}"
+  bucket = "idp-cost-management-${var.short_region}-${var.env}-${var.account_id}"
 
   tags = var.tags
 }

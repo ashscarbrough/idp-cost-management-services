@@ -16,15 +16,15 @@ resource "aws_lambda_function" "ebs_volume_inventory_lambda_function" {
   description = "Lambda function to scan, document, and clean up detached ebs volumes."
   environment {
     variables = {
-      ENV     = var.env,
-      SNS_ARN = var.sns_topic_arn,
+      ENV                = var.env,
+      SNS_ARN            = var.sns_topic_arn,
       CROSS_ACCOUNT_ROLE = var.cross_account_inventory_role_name,
-      ACCOUNT_TABLE = var.account_table_name,
-      EBS_VOLUME_TABLE  = aws_dynamodb_table.detached_ebs_volumes_inventory_table.id,
+      ACCOUNT_TABLE      = var.account_table_name,
+      EBS_VOLUME_TABLE   = aws_dynamodb_table.detached_ebs_volumes_inventory_table.id,
     }
   }
 
-  handler = "lambda_function.lambda_handler"
+  handler     = "lambda_function.lambda_handler"
   memory_size = 512
   runtime     = "python3.13"
 

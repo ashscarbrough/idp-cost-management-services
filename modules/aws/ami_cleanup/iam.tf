@@ -18,85 +18,85 @@ resource "aws_iam_policy" "ami_cleanup_policy" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-        {
-          Sid    = "AWSLambdaVPCAccessExecutionPermissions",
-          Effect = "Allow",
-          Action = [
-              "logs:CreateLogGroup",
-              "logs:CreateLogStream",
-              "logs:PutLogEvents",
-              "ec2:CreateNetworkInterface",
-              "ec2:DescribeNetworkInterfaces",
-              "ec2:DescribeSubnets",
-              "ec2:DeleteNetworkInterface",
-              "ec2:AssignPrivateIpAddresses",
-              "ec2:UnassignPrivateIpAddresses"
-          ],
-          Resource = "*"
-        },
-        {
-          Effect = "Allow"
-          Action = [
-              "dynamodb:BatchGetItem",
-              "dynamodb:DescribeTable",
-              "dynamodb:ListTables",
-              "dynamodb:ListGlobalTables",
-              "dynamodb:GetItem",
-              "dynamodb:GetResourcePolicy",
-              "dynamodb:Query",
-              "dynamodb:Scan",
-              "dynamodb:UpdateItem",
-              "dynamodb:PutItem",
-              "dynamodb:DeleteItem"
-          ]
-          Resource = [
-            var.account_table_arn,
-            var.ami_table_arn,
-            var.cleanup_savings_table_arn
-          ]
-        },
-        {
-          Sid    = "ResourceCleanupPermissions"
-          Effect = "Allow",
-          Action = [
-              "ec2:DeregisterImage"
-          ],
-          Resource = [
-              "*"
-          ]
-        },
-        {
-          Sid    = "DenyResourceCleanupWithoutTag"
-          Effect = "Deny",
-          Action = [
-              "ec2:DeregisterImage"
-          ],
-          Resource = [
-              "*"
-          ],
-          Condition = {
-            Null = {
-              "aws:RequestTag/identified_for_deletion": "true"
-            } 
+      {
+        Sid    = "AWSLambdaVPCAccessExecutionPermissions",
+        Effect = "Allow",
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DescribeSubnets",
+          "ec2:DeleteNetworkInterface",
+          "ec2:AssignPrivateIpAddresses",
+          "ec2:UnassignPrivateIpAddresses"
+        ],
+        Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:BatchGetItem",
+          "dynamodb:DescribeTable",
+          "dynamodb:ListTables",
+          "dynamodb:ListGlobalTables",
+          "dynamodb:GetItem",
+          "dynamodb:GetResourcePolicy",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:UpdateItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem"
+        ]
+        Resource = [
+          var.account_table_arn,
+          var.ami_table_arn,
+          var.cleanup_savings_table_arn
+        ]
+      },
+      {
+        Sid    = "ResourceCleanupPermissions"
+        Effect = "Allow",
+        Action = [
+          "ec2:DeregisterImage"
+        ],
+        Resource = [
+          "*"
+        ]
+      },
+      {
+        Sid    = "DenyResourceCleanupWithoutTag"
+        Effect = "Deny",
+        Action = [
+          "ec2:DeregisterImage"
+        ],
+        Resource = [
+          "*"
+        ],
+        Condition = {
+          Null = {
+            "aws:RequestTag/identified_for_deletion" : "true"
           }
-        },
-        {
-            Sid    = "AssumeRolePermissions"
-            Effect = "Allow",
-            Action = [
-                "sts:AssumeRole"
-            ],
-            Resource = [
-                "arn:aws:iam::*:role/${var.cross_account_cleanup_role_name}"
-            ]
-        },
-        {
-          Effect = "Allow"
-          Action = [
-            "sns:publish"
-          ]
-          Resource = [var.sns_topic_arn]
         }
+      },
+      {
+        Sid    = "AssumeRolePermissions"
+        Effect = "Allow",
+        Action = [
+          "sts:AssumeRole"
+        ],
+        Resource = [
+          "arn:aws:iam::*:role/${var.cross_account_cleanup_role_name}"
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "sns:publish"
+        ]
+        Resource = [var.sns_topic_arn]
+      }
     ]
   })
 }

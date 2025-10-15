@@ -16,16 +16,16 @@ resource "aws_lambda_function" "ami_cleanup_lambda_function" {
   description = "Lambda function to clean up amis."
   environment {
     variables = {
-      ENV     = var.env,
-      SNS_ARN = var.sns_topic_arn,
-      CROSS_ACCOUNT_ROLE = var.cross_account_cleanup_role_name,
-      ACCOUNT_TABLE = var.account_table_name,
-      AMI_TABLE  = var.ami_table_name,
+      ENV                   = var.env,
+      SNS_ARN               = var.sns_topic_arn,
+      CROSS_ACCOUNT_ROLE    = var.cross_account_cleanup_role_name,
+      ACCOUNT_TABLE         = var.account_table_name,
+      AMI_TABLE             = var.ami_table_name,
       CLEANUP_SAVINGS_TABLE = var.cleanup_savings_table_name
     }
   }
 
-  handler = "lambda_function.lambda_handler"
+  handler     = "lambda_function.lambda_handler"
   memory_size = 256
   runtime     = "python3.13"
 

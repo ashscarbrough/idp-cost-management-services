@@ -29,7 +29,7 @@ resource "aws_lambda_function" "aws_account_pull" {
   filename         = data.archive_file.aws_account_pull_lambda_code.output_path
   source_code_hash = data.archive_file.aws_account_pull_lambda_code.output_base64sha256
 
-  tags = var.tags
+  tags    = var.tags
   timeout = 600
   vpc_config {
     security_group_ids = [var.lambda_security_group_id]

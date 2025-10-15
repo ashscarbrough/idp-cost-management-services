@@ -17,72 +17,72 @@ resource "aws_iam_policy" "account_list_processing_lambda_policy" {
   name = "account-list-processing-lambda-policy"
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [ {
-            Sid = "AWSLambdaVPCAccessExecutionPermissions",
-            Effect = "Allow",
-            Action = [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-                "ec2:CreateNetworkInterface",
-                "ec2:DescribeNetworkInterfaces",
-                "ec2:DescribeSubnets",
-                "ec2:DeleteNetworkInterface",
-                "ec2:AssignPrivateIpAddresses",
-                "ec2:UnassignPrivateIpAddresses"
-            ],
-            Resource = "*"
-        },
-        {
-            Sid = "AssumeOrganizationAccountRole"
-            Effect = "Allow",
-            Action = [
-                "sts:AssumeRole"
-            ],
-            Resource = [
-                var.management_account_role_arn
-            ]
-        }, 
-        {
-          Effect = "Allow"
-          Action = [
-            "dynamodb:BatchGetItem",
-            "dynamodb:DescribeTable",
-            "dynamodb:ListTables",
-            "dynamodb:ListGlobalTables",
-            "dynamodb:GetItem",
-            "dynamodb:GetResourcePolicy",
-            "dynamodb:Query",
-            "dynamodb:Scan",
-            "dynamodb:UpdateItem",
-            "dynamodb:PutItem"
-          ]
-          Resource = [var.dynamodb_accounts_table_arn]
-        },
-        {
-          Effect = "Allow"
-          Action = [
-            "secretsmanager:GetSecretValue",    
-          ]
-          Resource = ["arn:aws:secretsmanager:*:*:secret:*"]
-        },
-        {
-          Sid = "AssumeManagementAccountRole"
-          Effect = "Allow",
-          Action = [
-            "sts:AssumeRole"
-          ],
-          Resource = [
-            var.management_account_role_arn
-          ]
-        },
-        {
-          Effect = "Allow"
-          Action = [
-            "sns:publish"
-          ]
-          Resource = [var.sns_topic_arn]
-        }
+    Statement = [{
+      Sid    = "AWSLambdaVPCAccessExecutionPermissions",
+      Effect = "Allow",
+      Action = [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "ec2:CreateNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeSubnets",
+        "ec2:DeleteNetworkInterface",
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:UnassignPrivateIpAddresses"
+      ],
+      Resource = "*"
+      },
+      {
+        Sid    = "AssumeOrganizationAccountRole"
+        Effect = "Allow",
+        Action = [
+          "sts:AssumeRole"
+        ],
+        Resource = [
+          var.management_account_role_arn
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:BatchGetItem",
+          "dynamodb:DescribeTable",
+          "dynamodb:ListTables",
+          "dynamodb:ListGlobalTables",
+          "dynamodb:GetItem",
+          "dynamodb:GetResourcePolicy",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:UpdateItem",
+          "dynamodb:PutItem"
+        ]
+        Resource = [var.dynamodb_accounts_table_arn]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue",
+        ]
+        Resource = ["arn:aws:secretsmanager:*:*:secret:*"]
+      },
+      {
+        Sid    = "AssumeManagementAccountRole"
+        Effect = "Allow",
+        Action = [
+          "sts:AssumeRole"
+        ],
+        Resource = [
+          var.management_account_role_arn
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "sns:publish"
+        ]
+        Resource = [var.sns_topic_arn]
+      }
     ]
   })
 }

@@ -6,8 +6,8 @@ variable "active_regions" {
 }
 
 variable "account_table_arn" {
-    description = "ARN of the DynamoDB table to store AWS accounts"
-    type        = string
+  description = "ARN of the DynamoDB table to store AWS accounts"
+  type        = string
 }
 
 variable "account_table_name" {

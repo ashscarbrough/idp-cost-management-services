@@ -16,16 +16,16 @@ resource "aws_lambda_function" "ami_inventory_lambda_function" {
   description = "Lambda function to scan, document, and inventory amis."
   environment {
     variables = {
-      ACCOUNT_TABLE = var.account_table_name,
-      ACTIVE_REGIONS = var.active_regions,
-      AMI_TABLE  = aws_dynamodb_table.ami_inventory_table.id,
+      ACCOUNT_TABLE      = var.account_table_name,
+      ACTIVE_REGIONS     = var.active_regions,
+      AMI_TABLE          = aws_dynamodb_table.ami_inventory_table.id,
       CROSS_ACCOUNT_ROLE = var.cross_account_inventory_role_name,
-      ENV     = var.env,
-      SNS_ARN = var.sns_topic_arn
+      ENV                = var.env,
+      SNS_ARN            = var.sns_topic_arn
     }
   }
 
-  handler = "lambda_function.lambda_handler"
+  handler     = "lambda_function.lambda_handler"
   memory_size = 2048
   runtime     = "python3.13"
 
