@@ -1,7 +1,5 @@
 formatter: markdown
 version: ""
-header-from: header.md
-footer-from: footer.md
 
 sections:
   hide: []

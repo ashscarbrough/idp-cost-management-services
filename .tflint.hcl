@@ -31,18 +31,39 @@ plugin "aws" {
 
   # Optional: restrict region if desired
   # region = "us-east-1"
+}
 
-  # Common AWS rule customizations
-  rules = {
-    aws_instance_invalid_type                = true
-    aws_instance_previous_type               = true
-    aws_s3_bucket_versioning_enabled         = true
-    aws_s3_bucket_encryption_enabled         = true
-    aws_db_instance_backup_retention_period  = true
-    aws_elb_invalid_type                     = true
-    aws_iam_policy_invalid_action            = true
-    aws_iam_policy_invalid_resource          = true
-  }
+# Common AWS rule customizations
+rule "aws_instance_invalid_type" {
+  enabled = true
+}
+
+rule "aws_instance_previous_type" {
+  enabled = true
+}
+
+rule "aws_s3_bucket_versioning_enabled" {
+  enabled = true
+}
+
+rule "aws_s3_bucket_encryption_enabled" {
+  enabled = true
+}
+
+rule "aws_db_instance_backup_retention_period" {
+  enabled = true
+}
+
+rule "aws_elb_invalid_type" {
+  enabled = true
+}
+
+rule "aws_iam_policy_invalid_action" {
+  enabled = true
+}
+
+rule "aws_iam_policy_invalid_resource" {
+  enabled = true
 }
 
 # ------------------------------------------------------------------------------
