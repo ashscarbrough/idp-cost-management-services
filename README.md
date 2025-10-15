@@ -156,6 +156,26 @@ The name of this role will need to be provided as a variable in your variables: 
 
 Deploy the following role to your management account (replace the role inputs for <tooling-account-id>: which is the account this solution is deployed, and the <role-name>: found in the module aws_iam_role.account_list_processing_lambda_role).  The role name is postfixed with *"\*-inventory-role"*, though a wildcard can be used, it is advisable to add each inventory role individually to your trust as a list.
 
+**Single-Account Inventory Role**
+```hcl
+resource "aws_iam_role" "cross_account_inventory_role" {
+  name = "single-account-inventory-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        AWS = [
+          "arn:aws:iam::<target-account-id>:root"
+        ]
+      }
+    }]
+  })
+}
+```
+
+**Multi-Account Cross-Account Inventory Role**
 ```hcl
 resource "aws_iam_role" "cross_account_inventory_role" {
   name = "cross-account-inventory-role"
@@ -165,12 +185,21 @@ resource "aws_iam_role" "cross_account_inventory_role" {
       Action = "sts:AssumeRole"
       Effect = "Allow"
       Principal = {
-        AWS = ["arn:aws:iam::<tooling-account-id>:role/*-inventory-role*"]
+        AWS = [
+          "arn:aws:iam::<tooling-account-id>:role/ebs-volume-inventory-role",
+          "arn:aws:iam::<tooling-account-id>:role/ami-inventory-role",
+          "arn:aws:iam::<tooling-account-id>:role/ebs-snapshot-inventory-role",
+          "arn:aws:iam::<tooling-account-id>:role/detached-ebs-volume-inventory-role",
+          ...
+        ]
       }
     }]
   })
 }
+```
 
+**Inventory Role Policy and Attachment**
+```hcl
 resource "aws_iam_policy" "cross_account_inventory_policy" {
   name = "cross-account-inventory-policy"
   policy = jsonencode({
@@ -184,7 +213,7 @@ resource "aws_iam_policy" "cross_account_inventory_policy" {
           "ec2:DescribeSnapshots",
           "ec2:DescribeVolumes",
           "ec2:CreateTags",
-          "ec2:DeleteTags",
+          "ec2:DeleteTags"
         ],
         Resource = [
           "*"
@@ -213,21 +242,51 @@ The name of this role will need to be provided as a variable in your variables: 
 
 Deploy the following role to your management account (replace the role inputs for <tooling-account-id>: which is the account this solution is deployed, and the <role-name>: found in the module aws_iam_role.account_list_processing_lambda_role).  The role name is postfixed with *"\*-cleanup-role"*, though a wildcard can be used, it is advisable to add each inventory role individually to your trust as a list.
 
+
+**Single-Account Inventory Role**
 ```hcl
-resource "aws_iam_role" "ebs_snapshot_cleanup_role" {
-  name = "ebs-snapshot-cleanup-role"
+resource "aws_iam_role" "cross_account_inventory_role" {
+  name = "single-account-cleanup-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Action = "sts:AssumeRole"
       Effect = "Allow"
       Principal = {
-        AWS = ["arn:aws:iam::<tooling-account-id>:role/*-cleanup-role*"]
+        AWS = [
+          "arn:aws:iam::<target-account-id>:root"
+        ]
       }
     }]
   })
 }
+```
 
+**Multi-Account Cross-Account Inventory Role**
+```hcl
+resource "aws_iam_role" "ebs_snapshot_cleanup_role" {
+  name = "cross-account-cleanup-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        AWS = [
+          "arn:aws:iam::<tooling-account-id>:role/ebs-volume-cleanup-role",
+          "arn:aws:iam::<tooling-account-id>:role/ami-cleanup-role",
+          "arn:aws:iam::<tooling-account-id>:role/ebs-snapshot-inventory-role",
+          "arn:aws:iam::<tooling-account-id>:role/detached-ebs-volume-inventory-role",
+          ...
+        ]
+      }
+    }]
+  })
+}
+```
+
+**Inventory Role Policy and Attachment**
+```hcl
 resource "aws_iam_policy" "cross_account_cleanup_policy" {
   name = "cross-account-cleanup-policy"
   policy = jsonencode({
