@@ -28,6 +28,18 @@ jobs:
           role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
           aws-region: us-east-1
 
+      - name: Install pre-commit dependencies
+        run: |
+          pip install pre-commit
+          curl -sL https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip -o tflint.zip
+          unzip tflint.zip -d /usr/local/bin/
+          rm tflint.zip
+          curl -sL https://github.com/aquasecurity/trivy/releases/latest/download/trivy_$(uname -s)_$(uname -m).tar.gz | tar xz -C /usr/local/bin trivy
+          curl -sLo terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/latest/download/terraform-docs-$(uname -s)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          mv terraform-docs /usr/local/bin/
+          rm terraform-docs.tar.gz
+
       - name: Pre-commit checks
         uses: pre-commit/action@v3.0.1
 

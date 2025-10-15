@@ -5,8 +5,5 @@ repos:
     - id: terraform_fmt
     - id: terraform_validate
     - id: terraform_tflint
-      additional_dependencies: [tflint]
     - id: terraform_docs
-      additional_dependencies: [terraform-docs]
     - id: terraform_trivy
-      additional_dependencies: [trivy]
