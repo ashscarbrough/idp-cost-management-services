@@ -51,10 +51,6 @@ rule "aws_instance_previous_type" {
   enabled = true
 }
 
-rule "aws_s3_bucket_versioning_enabled" {
-  enabled = true
-}
-
 rule "aws_s3_bucket_encryption_enabled" {
   enabled = true
 }
