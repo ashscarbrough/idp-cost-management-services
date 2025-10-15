@@ -8,7 +8,6 @@ data "archive_file" "terraform_workspaces_lambda_code" {
 
 resource "aws_lambda_function" "terraform_workspaces_lambda_function" {
   depends_on = [
-    aws_security_group.platform_automation_lambda_sg,
     aws_iam_role.terraform_workspace_inventory_role
   ]
   function_name = "terraform-workspaces-${var.short_region}-${var.env}"
@@ -27,7 +26,7 @@ resource "aws_lambda_function" "terraform_workspaces_lambda_function" {
   }
 
   handler     = "lambda_function.lambda_handler"
-  layers      = [aws_lambda_layer_version.requests_layer.arn]
+  layers      = [var.requests_layer_arn]
   memory_size = 256
   runtime     = "python3.13"
 

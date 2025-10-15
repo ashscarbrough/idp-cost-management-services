@@ -20,7 +20,7 @@ module "single_account_mode" {
   dynamodb_accounts_table_name     = module.core_infrastructure.account_table_name
   dynamodb_accounts_table_hash_key = module.core_infrastructure.account_table_hash_key
   env                              = var.env
-  target_account_id                = var.target_account_id
+  target_account_id                = local.deployment_account_id
 }
 
 module "multi_account_mode" {
@@ -47,7 +47,7 @@ module "multi_account_mode" {
 module "savings_tracking_infrastructure" {
   source = "./modules/savings_tracking_infra"
 
-  account_id   = var.target_account_id
+  account_id   = local.deployment_account_id
   env          = var.env
   short_region = local.short_region
   tags = merge(

@@ -70,5 +70,5 @@ resource "aws_iam_policy" "terraform_policy" {
 
 resource "aws_iam_role_policy_attachment" "terraform_role_policy_attachment" {
   policy_arn = aws_iam_policy.terraform_policy.arn
-  role       = aws_iam_role.terraform_role.name
+  role       = aws_iam_role.terraform_workspace_inventory_role.name
 }

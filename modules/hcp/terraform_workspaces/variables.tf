@@ -14,6 +14,11 @@ variable "lambda_security_group_id" {
   type        = string
 }
 
+variable "requests_layer_arn" {
+  description = "ARN of the Lambda layer containing the requests library"
+  type        = string
+}
+
 variable "secret_name" {
   description = "Name of the Secrets Manager secret containing the HCP API token"
   type        = string

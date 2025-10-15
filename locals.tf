@@ -7,5 +7,7 @@ locals {
   }
 
   short_region = lookup(local.short_region_map, var.aws_region, "unknown")
+
+  deployment_account_id = data.aws_caller_identity.current.account_id
 }
  

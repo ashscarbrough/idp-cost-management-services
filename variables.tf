@@ -32,18 +32,14 @@ variable "inactive_accounts_list" {
   default     = ""
 }
 
-variable "management_account_id" {
-  description = "AWS account ID for the management account in an AWS Organization (required when deploying solution in multi-account mode)."
-  default     = ""
-}
-
 variable "management_account_role_arn" {
   description = "ARN of the role to assume in the management account to read AWS Organization details"
   type        = string
 }
 
 variable "multi_account_mode" {
-  description = "Enable multi-account mode - requires a read-only role in the AWS management account to "
+  description = "Enable multi-account mode - requires a read-only role in the AWS management account to pull account details from AWS Organizations"
+  type        = bool
   default     = false
 }
 
