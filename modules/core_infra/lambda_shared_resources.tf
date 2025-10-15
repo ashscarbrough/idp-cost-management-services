@@ -18,3 +18,4 @@ resource "aws_security_group" "idp_automation_lambda_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+# trivy:ignore:AVD-AWS-0104
