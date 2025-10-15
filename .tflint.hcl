@@ -12,13 +12,22 @@ config {
 plugin "terraform" {
   enabled = true
   preset  = "recommended"
+}
 
-  rules = {
-    terraform_required_providers = true   # warn if provider version missing
-    terraform_required_version    = true   # ensure terraform { required_version = ... } present
-    terraform_unused_declarations = true   # detect unused variables/outputs
-    terraform_deprecated_interpolation = true # catch legacy "${var}" style
-  }
+rule "terraform_required_providers" {
+  enabled = true   # warn if provider version missing
+}
+
+rule "terraform_required_version" {
+  enabled = true   # ensure terraform { required_version = ... } present
+}
+
+rule "terraform_unused_declarations" {
+  enabled = true   # detect unused variables/outputs
+}
+
+rule "terraform_deprecated_interpolation" {
+  enabled = true   # catch legacy "${var}" style
 }
 
 # ------------------------------------------------------------------------------

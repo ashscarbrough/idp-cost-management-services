@@ -51,7 +51,8 @@ resource "aws_iam_policy" "ebs_volume_cleanup_policy" {
         ]
         Resource = [
           var.account_table_arn,
-          var.ebs_volume_table_arn
+          var.ebs_volume_table_arn,
+          var.cleanup_savings_table_arn
         ]
       },
       {

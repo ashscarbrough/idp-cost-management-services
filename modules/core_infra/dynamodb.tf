@@ -21,8 +21,5 @@ resource "aws_dynamodb_table" "aws_accounts" {
     non_key_attributes = ["GlobalRegion", "Environment"]
   }
 
-  tags = {
-    Name        = "aws-accounts-table"
-    Environment = var.env
-  }
+  tags = var.tags
 }
