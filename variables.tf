@@ -65,11 +65,6 @@ variable "tags" {
   }
 }
 
-variable "target_account_id" {
-  description = "AWS account ID in which to deploy solution"
-  type        = string
-}
-
 variable "vpc_id" {
   description = "ID of the VPC in which to deploy Lambda functions"
   type        = string

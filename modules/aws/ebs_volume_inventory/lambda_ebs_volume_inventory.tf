@@ -18,6 +18,7 @@ resource "aws_lambda_function" "ebs_volume_inventory_lambda_function" {
     variables = {
       ENV                = var.env,
       SNS_ARN            = var.sns_topic_arn,
+      ACTIVE_REGIONS     = var.active_regions,
       CROSS_ACCOUNT_ROLE = var.cross_account_inventory_role_name,
       ACCOUNT_TABLE      = var.account_table_name,
       EBS_VOLUME_TABLE   = aws_dynamodb_table.detached_ebs_volumes_inventory_table.id,
