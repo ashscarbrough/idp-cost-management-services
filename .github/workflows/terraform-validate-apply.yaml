@@ -1,0 +1,82 @@
+name: terraform
+on:
+  pull_request:
+    paths: ["**/*.tf", ".pre-commit-config.yaml"]
+  push:
+    branches: [main]
+    paths: ["**/*.tf"]
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.environment }}
+    strategy:
+      matrix:
+        environment: [dev]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with: { terraform_version: 1.13.3 }
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Pre-commit checks
+        uses: pre-commit/action@v3.0.1
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config=envs/${{ matrix.environment }}/backend.tf
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+            -var-file=envs/${{ matrix.environment }}/terraform.tfvars
+
+  apply:
+    needs: plan
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.environment }}
+    strategy:
+      matrix:
+        environment: [dev]
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with: { terraform_version: 1.13.3 }
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-oidc-terraform
+          aws-region: us-east-1
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config=envs/${{ matrix.environment }}/backend.tf
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+            -var-file=envs/${{ matrix.environment }}/terraform.tfvars
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: |
+          terraform apply \
+            -var-file=envs/${{ matrix.environment }}/terraform.tfvars \
+            -auto-approve
