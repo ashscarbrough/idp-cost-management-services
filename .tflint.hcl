@@ -51,18 +51,6 @@ rule "aws_instance_previous_type" {
   enabled = true
 }
 
-rule "aws_s3_bucket_encryption_enabled" {
-  enabled = true
-}
-
-rule "aws_db_instance_backup_retention_period" {
-  enabled = true
-}
-
-rule "aws_elb_invalid_type" {
-  enabled = true
-}
-
 rule "aws_iam_policy_invalid_action" {
   enabled = true
 }
