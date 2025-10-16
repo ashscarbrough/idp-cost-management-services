@@ -172,7 +172,7 @@ def get_ami_ddb_record(image_id):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         response = dynamodb_client.get_item(
             Key={
@@ -204,7 +204,7 @@ def scan_ami_ddb_records(table_name):
 
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
         scan_response = dynamodb_client.scan(TableName=table_name)
         items = scan_response['Items']
 
@@ -227,7 +227,7 @@ def remove_ami_ddb_record(ami_id):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         dynamodb_client.delete_item(
             TableName=AMI_DDB_TABLE,
@@ -253,7 +253,7 @@ def create_ami_ddb_record(ami):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         # Add to table
         dynamodb_client.update_item(
@@ -302,7 +302,7 @@ def update_ami_ddb_record(ami):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         # Add to table
         dynamodb_client.update_item(

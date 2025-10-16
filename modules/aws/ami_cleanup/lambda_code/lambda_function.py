@@ -67,7 +67,7 @@ def remove_resource_ddb_record(resource_id):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         dynamodb_client.delete_item(
             TableName=RESOURCE_TABLE,
@@ -115,7 +115,7 @@ def delete_old_resources():
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         today_date = datetime.now().strftime('%Y-%m-%d')
 

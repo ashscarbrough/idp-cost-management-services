@@ -15,7 +15,7 @@ CORE_ACCOUNTS = []
 ACCOUNT_DDB_TABLE = os.environ['ACCOUNT_TABLE']  # 'aws-accounts'
 ACCOUNT_DDB_TABLE_INDEX = 'AccountName-index'
 EBS_VOLUME_DDB_TABLE = os.environ['EBS_VOLUME_TABLE'] # 'detached-ebs-volumes'
-CLEANUP_SAVINGS_TABLE = os.environ['CLEANUP_SAVINGS_TABLE']
+
 SNSTOPICARN=os.environ['SNS_ARN']
 
 # Constants for EBS pricing based on region
@@ -280,7 +280,7 @@ def get_ebs_volume_ddb_record(volume_id):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         response = dynamodb_client.get_item(
             Key={
@@ -309,7 +309,7 @@ def scan_ebs_volume_ddb_records(table_name):
 
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         scan_response = dynamodb_client.scan(TableName=table_name)
 
@@ -328,7 +328,7 @@ def remove_ebs_volume_ddb_record(volume_id):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         dynamodb_client.delete_item(
             TableName=EBS_VOLUME_DDB_TABLE,
@@ -354,7 +354,7 @@ def create_ebs_volume_ddb_record(detached_volume):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         # Add to table
         dynamodb_client.update_item(
@@ -399,7 +399,7 @@ def update_ebs_volume_ddb_record(detached_volume):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         # Add to table
         dynamodb_client.update_item(

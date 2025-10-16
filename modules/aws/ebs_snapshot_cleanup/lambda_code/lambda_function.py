@@ -193,7 +193,7 @@ def update_snapshot_ddb_record(snapshot_id, connected_resource):
 
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         # Add to table
         dynamodb_client.update_item(

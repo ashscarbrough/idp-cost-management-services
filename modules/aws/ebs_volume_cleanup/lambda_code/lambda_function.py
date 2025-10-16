@@ -63,7 +63,7 @@ def remove_ebs_volume_ddb_record(volume_id):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         dynamodb_client.delete_item(
             TableName=EBS_VOLUME_DDB_TABLE,
@@ -111,7 +111,7 @@ def delete_old_ebs_volumes():
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         today_date = datetime.now().strftime('%Y-%m-%d')
 
@@ -139,7 +139,7 @@ def create_cost_saving_ddb_record(deleted_volume):
 
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         # Add to table
         dynamodb_client.update_item(

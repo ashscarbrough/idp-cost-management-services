@@ -49,7 +49,7 @@ def update_accounts_in_dynamodb(account_list) -> None:
     """
     # Put account information into DynamoDB table
     session = boto3.Session()
-    dynamodb_client = session.client('dynamodb', region_name='us-west-2')
+    dynamodb_client = session.client('dynamodb')
 
     try:
         for account in account_list:
