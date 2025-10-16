@@ -42,23 +42,6 @@ plugin "aws" {
   # region = "us-east-1"
 }
 
-# Common AWS rule customizations
-rule "aws_s3_bucket_name" {
-  enabled = true
-}
-
-rule "aws_provider_missing_default_tags" {
-  enabled = true
-}
-
-rule "aws_lambda_function_deprecated_runtime" {
-  enabled = true
-}
-
-rule "aws_iam_role_deprecated_policy_attributes" {
-  enabled = true
-}
-
 # ------------------------------------------------------------------------------
 # (Optional) Ignore specific rules project-wide
 # ------------------------------------------------------------------------------

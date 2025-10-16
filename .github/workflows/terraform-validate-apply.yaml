@@ -30,9 +30,8 @@ jobs:
 
       - name: Terraform Init
         run: |
-          terraform init \
-            -backend-config=envs/${{ matrix.environment }}/backend.tf
-
+          terraform init -backend-config="envs/${{ matrix.environment }}/backend.tf"
+          
       - name: Install pre-commit dependencies
         run: |
           pip install pre-commit
@@ -53,7 +52,7 @@ jobs:
         with:
           repo: terraform-docs/terraform-docs
           tag: latest
-          cache: true            # speed up subsequent runs
+          cache: true
 
       - name: Pre-commit checks
         uses: pre-commit/action@v3.0.1
