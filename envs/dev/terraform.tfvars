@@ -8,6 +8,5 @@ inactive_accounts_list            = ""
 management_account_role_arn       = ""
 multi_account_mode                = false
 sns_contact_email                 = "ash.scarbrough@gmail.com"
-subnet_ids                        = ["subnet-381ecc64", "subnet-3551c83a"]
 tags                              = { repository = "github.com/ashscarbrough/idp-cost-management-services" }
 vpc_id                            = "vpc-dd4059a6"

@@ -37,10 +37,7 @@ resource "aws_lambda_function" "ami_inventory_lambda_function" {
     { Name = "ami-inventory-lambda-function" }
   )
   timeout = 900
-  vpc_config {
-    security_group_ids = [var.lambda_security_group_id]
-    subnet_ids         = var.subnet_ids
-  }
+
 }
 
 resource "aws_cloudwatch_log_group" "ami_inventory_lambda_logs" {

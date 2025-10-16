@@ -58,17 +58,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "lambda_security_group_id" {
-  description = "Security Group ID to attach to the Lambda function"
-  type        = string
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs within the VPC to deploy Lambda functions"
-  type        = list(string)
-  default     = []
-}
-
 variable "dynamodb_table_region" {
   description = "AWS region in which the DynamoDB table is deployed"
   type        = string

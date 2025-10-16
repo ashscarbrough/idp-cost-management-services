@@ -381,7 +381,7 @@ def create_ebs_volume_ddb_record(detached_volume):
                 ':volumeSize': {'N': str(detached_volume['VolumeSize'])},
                 ':volumeIops': {'N': str(detached_volume['VolumeIops'])},
                 ':volumeThroughput': {'N': str(detached_volume['VolumeThroughput'])},
-                ':monthlyCost': {'N': detached_volume['MonthlyCost']}
+                ':monthlyCost': {'N': detached_volume.get('MonthlyCost', '0.00')}
             },
             TableName=EBS_VOLUME_DDB_TABLE,
         )
@@ -416,7 +416,7 @@ def update_ebs_volume_ddb_record(detached_volume):
                 ':volumeSize': {'N': str(detached_volume['VolumeSize'])},
                 ':volumeIops': {'N': str(detached_volume['VolumeIops'])},
                 ':volumeThroughput': {'N': str(detached_volume['VolumeThroughput'])},
-                ':monthlyCost': {'N': detached_volume['MonthlyCost']}
+                ':monthlyCost': {'N': detached_volume.get('MonthlyCost', '0.00')}
             },
             TableName=EBS_VOLUME_DDB_TABLE,
         )
@@ -445,7 +445,7 @@ def update_ddb_records(detached_volumes):
                 or table_item['VolumeSize']['N'] != str(detached_volume_entry['VolumeSize']) \
                 or table_item['VolumeIops']['N'] != str(detached_volume_entry['VolumeIops']) \
                 or table_item['VolumeThroughput']['N'] != str(detached_volume_entry['VolumeThroughput']) \
-                or f"{float(table_item['MonthlyCost']['N']):.2f}" != str(detached_volume_entry['MonthlyCost']):
+                or f"{float(table_item['MonthlyCost']['N']):.2f}" != str(detached_volume_entry.get('MonthlyCost', '0.00')):
                 print('updating:', table_item['VolumeId']['S'])
                 update_ebs_volume_ddb_record(detached_volume_entry)
 
@@ -623,6 +623,7 @@ def calculate_monthly_cost(volumes):
         region_pricing = EBS_PRICING.get(volume['Region'], {})
         if volume['VolumeType'] not in region_pricing:
             print(f"Error: Unsupported volume type : {volume['VolumeType']} for region: {volume['Region']} in volume ID: {volume['VolumeId']}")
+            volume['MonthlyCost'] = "0.00"
             continue
 
         # Get the price per GB-month for the volume type and region

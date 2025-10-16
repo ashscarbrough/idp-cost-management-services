@@ -20,11 +20,6 @@ variable "inactive_accounts_list" {
   default     = ""
 }
 
-variable "lambda_security_group_id" {
-  description = "Security Group ID to attach to the Lambda function"
-  type        = string
-}
-
 variable "management_account_role_arn" {
   description = "ARN of the role to assume in the management account to read AWS Organization details"
   type        = string
@@ -38,12 +33,6 @@ variable "short_region" {
 variable "sns_topic_arn" {
   description = "ARN of the SNS topic for notifications of errors and updates"
   type        = string
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs within the VPC to deploy Lambda functions"
-  type        = list(string)
-  default     = []
 }
 
 variable "tags" {

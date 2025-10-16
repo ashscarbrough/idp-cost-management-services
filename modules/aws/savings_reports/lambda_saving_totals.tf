@@ -34,10 +34,7 @@ resource "aws_lambda_function" "savings_totals_lambda_function" {
 
   tags    = var.tags
   timeout = 900
-  vpc_config {
-    security_group_ids = [var.lambda_security_group_id]
-    subnet_ids         = var.subnet_ids
-  }
+
 }
 
 resource "aws_cloudwatch_log_group" "savings_totals_lambda_logs" {

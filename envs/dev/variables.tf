@@ -48,12 +48,6 @@ variable "sns_contact_email" {
   type        = string
 }
 
-variable "subnet_ids" {
-  description = "List of subnet IDs within the VPC to deploy Lambda functions"
-  type        = list(string)
-  default     = []
-}
-
 variable "tags" {
   description = "The key-value map of strings"
   type        = map(string)

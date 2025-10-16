@@ -36,10 +36,7 @@ resource "aws_lambda_function" "ebs_snapshot_inventory_lambda_function" {
     { Name = "ebs-snapshot-inventory-lambda-function" }
   )
   timeout = 900
-  vpc_config {
-    security_group_ids = [var.lambda_security_group_id]
-    subnet_ids         = var.subnet_ids
-  }
+
 }
 
 resource "aws_cloudwatch_log_group" "ebs_snapshot_inventory_lambda_logs" {
