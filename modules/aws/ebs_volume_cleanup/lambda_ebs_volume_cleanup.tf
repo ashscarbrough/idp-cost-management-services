@@ -11,7 +11,7 @@ resource "aws_lambda_function" "ebs_volume_cleanup_lambda_function" {
     aws_iam_role.ebs_volume_cleanup_role
   ]
   function_name = "ebs-volume-cleanup-lambda-${var.short_region}-${var.env}"
-  role          = aws_iam_role.ebs_volume_cleanup_role
+  role          = aws_iam_role.ebs_volume_cleanup_role.arn
 
   description = "Lambda function to scan, document, and clean up detached ebs volumes."
   environment {
