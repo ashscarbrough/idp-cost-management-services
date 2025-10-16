@@ -32,11 +32,9 @@ module "multi_account_mode" {
   dynamodb_accounts_table_arn  = module.core_infrastructure.account_table_arn
   env                          = var.env
   inactive_accounts_list       = var.inactive_accounts_list
-  lambda_security_group_id     = module.core_infrastructure.lambda_security_group_id
   management_account_role_arn  = var.management_account_role_arn
   short_region                 = local.short_region
   sns_topic_arn                = module.core_infrastructure.idp_automation_sns_topic
-  subnet_ids                   = var.subnet_ids
   tags = merge(
     var.tags,
     {
@@ -69,8 +67,6 @@ module "ami_inventory" {
   env                               = var.env
   short_region                      = local.short_region
   sns_topic_arn                     = module.core_infrastructure.idp_automation_sns_topic
-  lambda_security_group_id          = module.core_infrastructure.lambda_security_group_id
-  subnet_ids                        = var.subnet_ids
   tags = merge(
     var.tags,
     {
@@ -90,10 +86,8 @@ module "ami_cleanup" {
   cleanup_savings_table_name      = module.savings_tracking_infrastructure.resource_cleanup_savings_table_name
   cross_account_cleanup_role_name = var.cross_account_cleanup_role_name
   env                             = var.env
-  lambda_security_group_id        = module.core_infrastructure.lambda_security_group_id
   short_region                    = local.short_region
   sns_topic_arn                   = module.core_infrastructure.idp_automation_sns_topic
-  subnet_ids                      = var.subnet_ids
   tags = merge(
     var.tags,
     {
@@ -112,8 +106,6 @@ module "ebs_snapshot_inventory" {
   env                               = var.env
   short_region                      = local.short_region
   sns_topic_arn                     = module.core_infrastructure.idp_automation_sns_topic
-  lambda_security_group_id          = module.core_infrastructure.lambda_security_group_id
-  subnet_ids                        = var.subnet_ids
   tags = merge(
     var.tags,
     {
@@ -133,10 +125,8 @@ module "ebs_snapshot_cleanup" {
   cleanup_savings_table_name      = module.savings_tracking_infrastructure.resource_cleanup_savings_table_name
   cross_account_cleanup_role_name = var.cross_account_cleanup_role_name
   env                             = var.env
-  lambda_security_group_id        = module.core_infrastructure.lambda_security_group_id
   short_region                    = local.short_region
   sns_topic_arn                   = module.core_infrastructure.idp_automation_sns_topic
-  subnet_ids                      = var.subnet_ids
   tags = merge(
     var.tags,
     {
@@ -174,10 +164,8 @@ module "ebs_volume_cleanup" {
   cleanup_savings_table_name      = module.savings_tracking_infrastructure.resource_cleanup_savings_table_name
   cross_account_cleanup_role_name = var.cross_account_cleanup_role_name
   env                             = var.env
-  lambda_security_group_id        = module.core_infrastructure.lambda_security_group_id
   short_region                    = local.short_region
   sns_topic_arn                   = module.core_infrastructure.idp_automation_sns_topic
-  subnet_ids                      = var.subnet_ids
   tags = merge(
     var.tags,
     {
@@ -194,14 +182,12 @@ module "savings_reports" {
   ebs_snapshot_table_arn      = module.ebs_snapshot_inventory.ebs_snapshot_dynamodb_table_arn
   ebs_snapshot_table_name     = module.ebs_snapshot_inventory.ebs_snapshot_dynamodb_table_name
   env                         = var.env
-  lambda_security_group_id    = module.core_infrastructure.lambda_security_group_id
   resource_savings_table_arn  = module.savings_tracking_infrastructure.resource_cleanup_savings_table_arn
   resource_savings_table_name = module.savings_tracking_infrastructure.resource_cleanup_savings_table_name
   s3_storage_bucket_arn       = module.savings_tracking_infrastructure.s3_storage_bucket_arn
   s3_storage_bucket_name      = module.savings_tracking_infrastructure.s3_storage_bucket_name
   short_region                = local.short_region
   sns_topic_arn               = module.core_infrastructure.idp_automation_sns_topic
-  subnet_ids                  = var.subnet_ids
   tags = merge(
     var.tags,
     {

@@ -31,10 +31,7 @@ resource "aws_lambda_function" "aws_account_pull" {
 
   tags    = var.tags
   timeout = 600
-  vpc_config {
-    security_group_ids = [var.lambda_security_group_id]
-    subnet_ids         = var.subnet_ids
-  }
+
 }
 
 resource "aws_cloudwatch_log_group" "account_pull_lambda_logs" {

@@ -40,20 +40,9 @@ variable "env" {
   default     = "dev"
 }
 
-variable "lambda_security_group_id" {
-  description = "Security Group ID to attach to the Lambda function"
-  type        = string
-}
-
 variable "short_region" {
   description = "Short region code (e.g., usw2 for us-west-2)"
   type        = string
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs within the VPC to deploy Lambda functions"
-  type        = list(string)
-  default     = []
 }
 
 variable "tags" {

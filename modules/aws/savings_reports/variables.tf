@@ -24,11 +24,6 @@ variable "env" {
   default     = "dev"
 }
 
-variable "lambda_security_group_id" {
-  description = "Security Group ID to attach to the Lambda function"
-  type        = string
-}
-
 variable "resource_savings_table_arn" {
   description = "ARN of the DynamoDB table to store resource savings information"
   type        = string
@@ -57,12 +52,6 @@ variable "short_region" {
 variable "sns_topic_arn" {
   description = "ARN of the SNS topic for notifications of errors and updates"
   type        = string
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs within the VPC to deploy Lambda functions"
-  type        = list(string)
-  default     = []
 }
 
 variable "tags" {

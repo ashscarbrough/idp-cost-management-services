@@ -36,17 +36,6 @@ variable "sns_topic_arn" {
   type        = string
 }
 
-variable "lambda_security_group_id" {
-  description = "The Security group ID to attach to the Lambda function"
-  type        = string
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs within the VPC to deploy Lambda functions"
-  type        = list(string)
-  default     = []
-}
-
 variable "tags" {
   description = "The key-value map of strings"
   type        = map(string)
