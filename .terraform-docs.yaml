@@ -1,0 +1,13 @@
+formatter: markdown
+version: ""
+
+sections:
+  hide: []
+  show:
+    - header
+    - inputs
+    - outputs
+    - providers
+    - requirements
+    - resources
+    - footer
