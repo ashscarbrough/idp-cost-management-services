@@ -1,5 +1,5 @@
 ## Terraform variables for the dev environment
-active_regions                    = "us-east-1, us-east-2, us-west-1, us-west-2"
+active_regions                    = "us-east-1,us-east-2,us-west-1,us-west-2"
 aws_region                        = "us-east-1"
 cross_account_inventory_role_name = "cross-account-inventory-role"
 cross_account_cleanup_role_name   = "cross-account-cleanup-role"

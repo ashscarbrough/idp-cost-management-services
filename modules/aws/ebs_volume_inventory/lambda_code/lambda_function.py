@@ -152,7 +152,7 @@ def get_active_accounts():
         list: A list of active account items from the DynamoDB table.
     """
     try:
-        dynamodb_client = boto3.client('dynamodb', region_name = 'us-west-2')
+        dynamodb_client = boto3.client('dynamodb')
         scan_response = dynamodb_client.scan(TableName=ACCOUNT_DDB_TABLE)
         return scan_response['Items']
 

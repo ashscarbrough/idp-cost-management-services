@@ -155,8 +155,6 @@ module "ebs_volume_inventory" {
   env                               = var.env
   short_region                      = local.short_region
   sns_topic_arn                     = module.core_infrastructure.idp_automation_sns_topic
-  lambda_security_group_id          = module.core_infrastructure.lambda_security_group_id
-  subnet_ids                        = var.subnet_ids
   tags = merge(
     var.tags,
     {
