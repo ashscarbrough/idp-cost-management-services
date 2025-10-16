@@ -1,6 +1,6 @@
 
 module "core_infrastructure" {
-  source = "./modules/core_infra"
+  source = "../../modules/core_infra"
 
   sns_contact_email = var.sns_contact_email
   env               = var.env
@@ -15,7 +15,7 @@ module "core_infrastructure" {
 
 module "single_account_mode" {
   count  = var.multi_account_mode ? 0 : 1
-  source = "./modules/single_account_mode"
+  source = "../../modules/single_account_mode"
 
   dynamodb_accounts_table_name     = module.core_infrastructure.account_table_name
   dynamodb_accounts_table_hash_key = module.core_infrastructure.account_table_hash_key
@@ -25,7 +25,7 @@ module "single_account_mode" {
 
 module "multi_account_mode" {
   count  = var.multi_account_mode ? 1 : 0
-  source = "./modules/multi_account_mode"
+  source = "../../modules/multi_account_mode"
 
   dynamodb_accounts_table_name = module.core_infrastructure.account_table_name
   dynamodb_accounts_table_arn  = module.core_infrastructure.account_table_arn
@@ -45,7 +45,7 @@ module "multi_account_mode" {
 }
 
 module "savings_tracking_infrastructure" {
-  source = "./modules/savings_tracking_infra"
+  source = "../../modules/savings_tracking_infra"
 
   account_id   = local.deployment_account_id
   env          = var.env
@@ -59,7 +59,7 @@ module "savings_tracking_infrastructure" {
 }
 
 module "ami_inventory" {
-  source = "./modules/aws/ami_inventory"
+  source = "../../modules/aws/ami_inventory"
 
   account_table_name                = module.core_infrastructure.account_table_name
   account_table_arn                 = module.core_infrastructure.account_table_arn
@@ -79,7 +79,7 @@ module "ami_inventory" {
 }
 
 module "ami_cleanup" {
-  source = "./modules/aws/ami_cleanup"
+  source = "../../modules/aws/ami_cleanup"
 
   account_table_name              = module.core_infrastructure.account_table_name
   account_table_arn               = module.core_infrastructure.account_table_arn
@@ -102,7 +102,7 @@ module "ami_cleanup" {
 }
 
 module "ebs_snapshot_inventory" {
-  source = "./modules/aws/ebs_snapshot_inventory"
+  source = "../../modules/aws/ebs_snapshot_inventory"
 
   account_table_name                = module.core_infrastructure.account_table_name
   account_table_arn                 = module.core_infrastructure.account_table_arn
@@ -122,7 +122,7 @@ module "ebs_snapshot_inventory" {
 }
 
 module "ebs_snapshot_cleanup" {
-  source = "./modules/aws/ebs_snapshot_cleanup"
+  source = "../../modules/aws/ebs_snapshot_cleanup"
 
   account_table_name              = module.core_infrastructure.account_table_name
   account_table_arn               = module.core_infrastructure.account_table_arn
@@ -145,7 +145,7 @@ module "ebs_snapshot_cleanup" {
 }
 
 module "ebs_volume_inventory" {
-  source = "./modules/aws/ebs_volume_inventory"
+  source = "../../modules/aws/ebs_volume_inventory"
 
   account_table_name                = module.core_infrastructure.account_table_name
   account_table_arn                 = module.core_infrastructure.account_table_arn
@@ -165,7 +165,7 @@ module "ebs_volume_inventory" {
 }
 
 module "ebs_volume_cleanup" {
-  source = "./modules/aws/ebs_volume_cleanup"
+  source = "../../modules/aws/ebs_volume_cleanup"
 
   account_table_name              = module.core_infrastructure.account_table_name
   account_table_arn               = module.core_infrastructure.account_table_arn
@@ -188,7 +188,7 @@ module "ebs_volume_cleanup" {
 }
 
 module "savings_reports" {
-  source = "./modules/aws/savings_reports"
+  source = "../../modules/aws/savings_reports"
 
   ebs_volume_table_arn        = module.ebs_volume_inventory.detached_ebs_volume_inventory_table_arn
   ebs_volume_table_name       = module.ebs_volume_inventory.detached_ebs_volume_inventory_table_name
@@ -212,5 +212,5 @@ module "savings_reports" {
 }
 
 module "http_requests_python313" {
-  source = "./modules/http_requests"
+  source = "../../modules/http_requests"
 }

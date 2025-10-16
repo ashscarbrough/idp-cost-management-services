@@ -29,8 +29,9 @@ jobs:
           aws-region: us-east-1
 
       - name: Terraform Init
+        working-directory: envs/${{ matrix.environment }}
         run: |
-          terraform init -backend-config="envs/${{ matrix.environment }}/backend.tf"
+          terraform init -backend-config="../envs/${{ matrix.environment }}/backend.tf"
           
       - name: Install pre-commit dependencies
         run: |
@@ -58,6 +59,7 @@ jobs:
         uses: pre-commit/action@v3.0.1
 
       - name: Terraform Plan
+        working-directory: envs/${{ matrix.environment }}
         run: |
           terraform plan \
             -var-file=envs/${{ matrix.environment }}/terraform.tfvars
@@ -86,17 +88,20 @@ jobs:
           aws-region: us-east-1
 
       - name: Terraform Init
+        working-directory: envs/${{ matrix.environment }}
         run: |
           terraform init \
             -backend-config=envs/${{ matrix.environment }}/backend.tf
 
       - name: Terraform Plan
+        working-directory: envs/${{ matrix.environment }}
         run: |
           terraform plan \
             -var-file=envs/${{ matrix.environment }}/terraform.tfvars
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
+        working-directory: envs/${{ matrix.environment }}
         run: |
           terraform apply \
             -var-file=envs/${{ matrix.environment }}/terraform.tfvars \

@@ -5,11 +5,9 @@ cross_account_inventory_role_name = "cross-account-inventory-role"
 cross_account_cleanup_role_name   = "cross-account-cleanup-role"
 env                               = "dev"
 inactive_accounts_list            = ""
-management_account_id             = ""
 management_account_role_arn       = ""
 multi_account_mode                = false
 sns_contact_email                 = "ash.scarbrough@gmail.com"
 subnet_ids                        = ["subnet-381ecc64", "subnet-3551c83a"]
 tags                              = { repository = "github.com/ashscarbrough/idp-cost-management-services" }
-target_account_id                 = "003511356200"
 vpc_id                            = "vpc-dd4059a6"
