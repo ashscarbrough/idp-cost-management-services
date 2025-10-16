@@ -20,3 +20,9 @@ variable "target_account_id" {
   description = "AWS account ID in which to deploy solution"
   type        = string
 }
+
+variable "target_account_name" {
+  description = "AWS account name in which to deploy solution"
+  type        = string
+  default     = "dev-account"
+}
