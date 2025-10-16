@@ -1,6 +1,6 @@
 # #### AMI DDB TABLE #### #
 resource "aws_dynamodb_table" "ami_inventory_table" {
-  name         = "ami-inventory"
+  name         = "ami-inventory-${var.env}"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "ResourceId"
 
@@ -9,8 +9,5 @@ resource "aws_dynamodb_table" "ami_inventory_table" {
     type = "S"
   }
 
-  tags = {
-    Name        = "ami-inventory"
-    Environment = var.env
-  }
+  tags = var.tags
 }

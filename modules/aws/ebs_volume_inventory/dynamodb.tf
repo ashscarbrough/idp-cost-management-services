@@ -9,8 +9,5 @@ resource "aws_dynamodb_table" "detached_ebs_volumes_inventory_table" {
     type = "S"
   }
 
-  tags = {
-    Name        = "detached-ebs-volumes-table-${var.env}"
-    Environment = var.env
-  }
+  tags = var.tags
 }

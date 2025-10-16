@@ -1,4 +1,4 @@
-# ######  EBS Ileanup Lambda  ######
+# ######  EBS Snapshot Inventory Lambda  ######
 data "archive_file" "ebs_snapshot_inventory_lambda_code" {
   type        = "zip"
   source_file = "${path.module}/lambda_code/lambda_function.py"

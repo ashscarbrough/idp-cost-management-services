@@ -64,7 +64,7 @@ def get_active_accounts():
         list: A list of active account information.
     """
     try:
-        dynamodb_client = boto3.client('dynamodb', region_name = 'us-west-2')
+        dynamodb_client = boto3.client('dynamodb')
         scan_response = dynamodb_client.scan(TableName=ACCOUNT_DDB_TABLE)
         return scan_response['Items']
 
@@ -264,7 +264,7 @@ def get_snapshot_ddb_record(snapshot_id):
     """
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         response = dynamodb_client.get_item(
             Key={
@@ -295,7 +295,7 @@ def scan_snapshot_ddb_records(table_name):
 
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
         scan_response = dynamodb_client.scan(TableName=table_name)
     except ClientError as e:
         error_message = f"Error in DynamoDB scan: {str(e)}"
@@ -312,7 +312,7 @@ def create_snapshot_ddb_record(snapshot):
 
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         dynamodb_client.update_item(
             Key={
@@ -354,7 +354,7 @@ def remove_snapshot_ddb_record(snapshot_id):
 
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         dynamodb_client.delete_item(
             TableName=DELETION_TABLE,
@@ -378,7 +378,7 @@ def update_snapshot_ddb_record(snapshot):
     #     None
     try:
         primary_session = boto3.Session()
-        dynamodb_client = primary_session.client('dynamodb', region_name='us-west-2')
+        dynamodb_client = primary_session.client('dynamodb')
 
         # Add to table
         dynamodb_client.update_item(
