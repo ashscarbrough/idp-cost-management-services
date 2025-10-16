@@ -21,6 +21,7 @@ module "single_account_mode" {
   dynamodb_accounts_table_hash_key = module.core_infrastructure.account_table_hash_key
   env                              = var.env
   target_account_id                = local.deployment_account_id
+  target_account_name              = "dev-account"
 }
 
 module "multi_account_mode" {

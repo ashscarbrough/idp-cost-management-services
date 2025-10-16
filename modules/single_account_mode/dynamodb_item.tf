@@ -9,7 +9,7 @@ resource "aws_dynamodb_table_item" "DDB_Item_Target_Account" {
   item = <<ITEM
   {
     "AccountId": {"S": "${var.target_account_id}"},
-    "AccountName": {"S": ""},
+    "AccountName": {"S": "${var.target_account_name}"},
     "AccountOwner": {"S": ""},
     "AccountStatus": {"S": "ACTIVE"},
     "Arn": {"S": ""},
