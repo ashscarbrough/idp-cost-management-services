@@ -43,19 +43,19 @@ plugin "aws" {
 }
 
 # Common AWS rule customizations
-rule "aws_instance_invalid_type" {
+rule "aws_s3_bucket_name" {
   enabled = true
 }
 
-rule "aws_instance_previous_type" {
+rule "aws_provider_missing_default_tags" {
   enabled = true
 }
 
-rule "aws_iam_policy_invalid_action" {
+rule "aws_lambda_function_deprecated_runtime" {
   enabled = true
 }
 
-rule "aws_iam_policy_invalid_resource" {
+rule "aws_iam_role_deprecated_policy_attributes" {
   enabled = true
 }
 
