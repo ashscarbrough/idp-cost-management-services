@@ -4,7 +4,7 @@ on:
     paths: ["**/*.tf", ".pre-commit-config.yaml", ".github/workflows/terraform-validate-apply.yaml"]
   push:
     branches: [main]
-    paths: ["**/*.tf"]
+    paths: ["**/*.tf", ".github/workflows/terraform-validate-apply.yaml"]
 
 jobs:
   plan:
@@ -83,7 +83,7 @@ jobs:
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-oidc-terraform
+          role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
           aws-region: us-east-1
 
       - name: Terraform Init
