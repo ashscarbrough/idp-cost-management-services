@@ -26,7 +26,7 @@ This solution can be deployed in two configurations:
 
 ## Single Account
 
-![Single Account Architecture](./docs/images/cost_management_single_account.jpg)
+![Single Account Architecture](./docs/images/cost_management_single_account.jpeg)
 
 The solution and its resources are deployed to a **single account** that hosts the compute and data infrastructure required for inventory and cleanup of cloud services.  This is ideal for a development environment, or for simple testing of the solution outputs.
 
@@ -50,7 +50,7 @@ Each operation is automated and leverages the least-privilege IAM roles for secu
 
 ## Multi Account
 
-![Multi Account Architecture](./docs/images/cost_management_multi_account.jpg)
+![Multi Account Architecture](./docs/images/cost_management_multi_account.jpeg)
 
 The solution and its resources are deployed to a **tooling account** that hosts the compute and data infrastructure required for inventory and cleanup of cloud services.
 
